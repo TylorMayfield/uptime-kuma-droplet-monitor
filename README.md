@@ -4,13 +4,13 @@ This companion config runs [Uptime Kuma](https://github.com/louislam/uptime-kuma
 
 ## Read the guide
 
-[Monitor a site from a separate server with Uptime Kuma](https://www.tylor.nz/content/monitor-site-with-uptime-kuma)
+[Monitor a site from a separate server with Uptime Kuma](https://www.tylor.nz/content/monitor-site-with-uptime-kuma?utm_source=github&utm_medium=referral&utm_campaign=digitalocean-guides&utm_content=companion-readme)
 
 ## Disclosure
 
 This README includes a DigitalOcean affiliate link. If you use it, I may earn a commission at no additional cost to you.
 
-[Create a monitoring Droplet on DigitalOcean](https://www.awin1.com/cread.php?s=4757508&v=123996&q=601070&r=3054551)
+[Create a monitoring Droplet on DigitalOcean](https://www.tylor.nz/go/digitalocean?utm_source=github&utm_medium=affiliate&utm_campaign=digitalocean-guides&utm_content=monitor-site-with-uptime-kuma&product=droplets&placement=companion-readme&variant=readme-primary&locale=en)
 
 ## Before you start
 
