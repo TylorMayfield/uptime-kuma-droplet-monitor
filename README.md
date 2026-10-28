@@ -10,16 +10,24 @@ This companion config runs [Uptime Kuma](https://github.com/louislam/uptime-kuma
 
 This README includes a DigitalOcean affiliate link. If you use it, I may earn a commission at no additional cost to you.
 
-[Create a monitoring Droplet on DigitalOcean](https://www.tylor.nz/go/digitalocean?utm_source=github&utm_medium=affiliate&utm_campaign=digitalocean-guides&utm_content=monitor-site-with-uptime-kuma&product=droplets&placement=companion-readme&variant=readme-primary&locale=en)
+[Review Droplet plans for a separate monitoring server](https://www.tylor.nz/go/digitalocean?utm_source=github&utm_medium=affiliate&utm_campaign=digitalocean-guides&utm_content=monitor-site-with-uptime-kuma&product=droplets&placement=companion-readme&variant=readme-primary&locale=en). Resolve the private-bootstrap hold below before provisioning this setup.
+
+## Private-bootstrap hold
+
+The current Compose stack exposes Caddy publicly when it starts. HTTPS and a closed direct port 3001 do not restrict who can reach first-account setup through Caddy. This companion does not yet supply a tested private-bootstrap and certificate-issuance sequence.
+
+Do not use the start block below as a turnkey public setup. First prepare and rehearse an administrator-only bootstrap on an authorized disposable instance. Keep public Caddy stopped and inbound ports 80, 443 and 3001 unreachable from the internet until that gate passes. The [guide's private-bootstrap acceptance gate](https://www.tylor.nz/content/monitor-site-with-uptime-kuma#article-section-required-private-bootstrap-acceptance-gate) describes the required evidence. No tested override or start commands are supplied here.
 
 ## Before you start
 
 - Use a dedicated Droplet. Do not run the monitor on the same server as the service it checks.
 - Point `KUMA_DOMAIN` at the Droplet's public IPv4 address before starting Caddy.
-- Allow inbound TCP 80 and 443 to the monitor Droplet. Restrict SSH to your own current address or VPN.
+- Keep inbound TCP 80 and 443 closed during first-account bootstrap. Restrict SSH to your own current address or VPN. Rehearse the later Caddy certificate and dashboard-access transition before opening public access.
 - Keep `./data` on the Droplet's local disk or a local Docker volume. Uptime Kuma documents that NFS is not supported for this data directory.
 
-## Start the dashboard
+## Start the dashboard after the bootstrap gate passes
+
+Stop here until the private-bootstrap hold above is resolved. The following original start block does not establish private first-account setup, and the preflight script does not prove it.
 
 ```sh
 git clone https://github.com/TylorMayfield/uptime-kuma-droplet-monitor.git
@@ -31,7 +39,7 @@ docker compose up -d
 ./scripts/check-dashboard.sh
 ```
 
-Open `https://KUMA_DOMAIN`, create the first administrator account, and create a notification before you add a production monitor. Do not publish the dashboard or a status page until you have decided who should see it.
+After the private-bootstrap and certificate checks pass, open `https://KUMA_DOMAIN` and sign in as the administrator already created through the verified private route. Create a notification before you add a production monitor. Do not publish the dashboard or a status page until you have decided who should see it.
 
 ## Add one monitor and test an alert
 
